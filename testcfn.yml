@@ -1,5 +1,5 @@
 Description: >
-    Donko Dimov
+    Donko Dimov / cloud devops course from Udacity.com
     VPC template for deploying on AWS
 Resources:
     UdacityVPC:

@@ -1,0 +1,16 @@
+[
+    {
+    "ParameterKey": "EnvironmentName",
+    "ParameterValue": "UdagramInfra"
+    },
+
+    {
+    "ParameterKey": "Image",
+    "ParameterValue": "ami-06d51e91cea0dac8d"
+    },
+    
+    {
+    "ParameterKey": "InstanceType",
+    "ParameterValue": "t3.medium"
+    }
+]

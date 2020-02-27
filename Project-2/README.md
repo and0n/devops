@@ -18,6 +18,12 @@ AWS account
 ## Usage
 create.sh and update.sh will create/update a stack in AWS. 3 arguments are requiered - stack name, file containig template body and file containing the parameters.
 
+Clone the Github repository and run create.sh or update.sh:
+```
+git clone https://github.com/and0n/devops.git
+cd devops/Project-2
+```
+
 ### Examples
 
 To deploy the networking components run command:

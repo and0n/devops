@@ -1,4 +1,5 @@
-Deploy a highly available web application using CloudFormation
+# Deploy a highly available web application using CloudFormation
+
 The scripts in this folder will deploy the infrastructure and 4 web servers for a highly available web app using CloudFormation.
 In case troubleshooting is needed a bastion host can be deployed in one of the public networks.
 

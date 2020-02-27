@@ -14,7 +14,7 @@ You need to [install awscli](https://docs.aws.amazon.com/cli/latest/userguide/cl
 ## Usage
 create.sh and update.sh will create/update a stack in AWS. 3 arguments are requiered - stack name, file containig template body and file containing the parameters.
 
-### Exaples
+### Examples
 
 To deploy the networking components run command:
 ```

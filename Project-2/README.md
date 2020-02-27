@@ -6,6 +6,8 @@ In case troubleshooting is needed a bastion host can be deployed in one of the p
 ## Infrastructure Overview
 ![Diagram](Udagram%20infra.jpeg)
 
+## Deployment instructions
+
 To deploy the networking components run command:
 ```
 ./create.sh udagram-net udagram-infra.yaml udagram-infra.json

@@ -49,10 +49,6 @@ Resources:
             FromPort: 80
             ToPort: 80
             CidrIp: 0.0.0.0/0
-          - IpProtocol: tcp
-            FromPort: 22
-            ToPort: 22
-            CidrIp: 0.0.0.0/0
         SecurityGroupEgress:
           - IpProtocol: tcp
             FromPort: 0
@@ -167,7 +163,67 @@ Resources:
       MaxSize: '6'
       TargetGroupARNs:
       - Ref: WebAppTargetGroup
+
+  AlarmScaleUp:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Alarm and triger autoscale if CPU > 90% for 5 minutes
+      MetricName: CPUUtilization
+      Namespace: AWS/EC2
+      Statistic: Average
+      Period: '180'
+      EvaluationPeriods: '2'
+      Threshold: '90'
+      AlarmActions:
+      - Ref: ScaleUpPolicy
+      Dimensions:
+      - Name: AutoScalingGroupName
+        Value:
+          Ref: WebAppGroup
+      ComparisonOperator: GreaterThanThreshold
+    
+  ScaleUpPolicy:
+    Type: AWS::AutoScaling::ScalingPolicy
+    Properties:
+      AdjustmentType: ChangeInCapacity
+      AutoScalingGroupName:
+        Ref: WebAppGroup
+      Cooldown: '60'
+      ScalingAdjustment: '1'
+
+  AlarmScaleDown:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Scale-down if CPU < 70% for 5 minutes
+      MetricName: CPUUtilization
+      Namespace: AWS/EC2
+      Statistic: Average
+      Period: '180'
+      EvaluationPeriods: '2'
+      Threshold: '70'
+      AlarmActions:
+      - Ref: ScaleDownPolicy
+      Dimensions:
+      - Name: AutoScalingGroupName
+        Value:
+          Ref: WebAppGroup
+      ComparisonOperator: LessThanThreshold  
   
+  ScaleDownPolicy:
+    Type: AWS::AutoScaling::ScalingPolicy
+    Properties:
+      AdjustmentType: ChangeInCapacity
+      AutoScalingGroupName:
+        Ref: WebAppGroup
+      Cooldown: '60'
+      ScalingAdjustment: "-1"
+
+  BasicDashboard:
+    Type: AWS::CloudWatch::Dashboard
+    Properties:
+      DashboardName: MyDashboard
+      DashboardBody: '{"widgets":[{"type":"metric","x":0,"y":0,"width":12,"height":6,"properties":{"metrics":[["AWS/EC2","CPUUtilization"]],"period":300,"stat":"Average","region":"us-west-2","title":"AutoScalingGroup-CPU Utilization"}},{"type":"text","x":0,"y":7,"width":3,"height":3,"properties":{"markdown":"Hello world"}}]}'
+
 Outputs:
 
   URL:
@@ -179,3 +235,8 @@ Outputs:
         - Fn::GetAtt:
           - WebAppLB
           - DNSName
+  ASGroupName:
+        Description: A reference to the AutoScalingGroupName
+        Value: !Ref WebAppGroup
+        Export:
+          Name: !Sub ${EnvironmentName}-ASG

@@ -1,52 +1,53 @@
 Description: >
-    This Cloudformation script will create instance in the public subnet. 
+  This Cloudformation script will create instance in the public subnet. 
 
 Parameters:
-
   EnvironmentName:
-      Description: An environment name that will be prefixed to resource names
-      Type: String
-
+    Description: An environment name that will be prefixed to resource names
+    Type: String
   Image:
-      Description: The Machine Image to be used
-      Type: String
-      Default: ami-06d51e91cea0dac8d
-
+    Description: The Machine Image to be used
+    Type: String
+    Default: ami-06d51e91cea0dac8d
   InstanceType:
-      Description: WebServer EC2 instance type
-      Type: String
-      Default: t2.medium
+    Description: WebServer EC2 instance type
+    Type: String
+    Default: t2.medium
 
 Resources: 
- Jumpbox: 
-  Type: "AWS::EC2::Instance"
-  Properties: 
-    InstanceType: !Ref InstanceType
-    KeyName: jumpbox-key
-    ImageId: !Ref Image
-    NetworkInterfaces: 
-      - AssociatePublicIpAddress: "true"
-        DeviceIndex: "0"
-        GroupSet: 
-          - Ref: "InstanceSG"
-        SubnetId: 
-          Fn::ImportValue: !Sub "${EnvironmentName}-PUB2-SN"
-   
-   
- InstanceSG: 
-  Type: "AWS::EC2::SecurityGroup"
-  Properties: 
-   GroupDescription: "Enable SSH access via port 22"
-   VpcId: 
+  Jumpbox: 
+    Type: "AWS::EC2::Instance"
+    Properties: 
+      InstanceType: !Ref InstanceType
+      KeyName: jumpbox-key
+      ImageId: !Ref Image
+      NetworkInterfaces: 
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          GroupSet: 
+            - Ref: "InstanceSG"
+          SubnetId: 
+            Fn::ImportValue: !Sub "${EnvironmentName}-PUB2-SN"      
+  InstanceSG: 
+    Type: "AWS::EC2::SecurityGroup"
+    Properties: 
+      GroupDescription: "Enable SSH access via port 22"
+      VpcId: 
         Fn::ImportValue: !Sub "${EnvironmentName}-VPCID"  
-   SecurityGroupIngress: 
-    - IpProtocol: tcp
-      FromPort: 22
-      ToPort: 22
-      CidrIp:  "0.0.0.0/0"
+      SecurityGroupIngress: 
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp:  "xxx.xxx.xxx.xxx/32" # Replace with your IP address
       
 Outputs: 
- InstanceId: 
-  Description: "InstanceId of the newly created EC2 instance"
-  Value: 
-   Ref: Jumpbox
+  InstanceId: 
+    Description: "InstanceId of the newly created EC2 instance"
+    Value: 
+      Ref: Jumpbox
+  InstanceIP:
+    Description: "Public IP address of the instance"
+    Value: !GetAtt Jumpbox.PublicIp
+    Export:
+      Name: !Sub "${EnvironmentName}-Jump-PublicIp"
+    

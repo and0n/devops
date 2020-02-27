@@ -8,7 +8,9 @@ A bastion host can be deployed in one of the public networks in case of troubles
 
 ## Prerequisites
 
-You need to [install awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) 
+AWS account
+[Install awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) 
+[Configure awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)
 
 
 ## Usage

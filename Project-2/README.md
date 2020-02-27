@@ -1,12 +1,20 @@
 # Deploy a highly available web application using CloudFormation
 
-The scripts in this folder will deploy the infrastructure and 4 web servers for a highly available web app using CloudFormation.
-In case troubleshooting is needed a bastion host can be deployed in one of the public networks.
+The scripts in this folder will deploy the infrastructure and 4 web servers in AWS for a highly available web app using CloudFormation.
+A bastion host can be deployed in one of the public networks in case of troubleshooting is needed.
 
 ## Infrastructure Overview
 ![Diagram](Udagram%20infra.jpeg)
 
-## Deployment instructions
+## Prerequisites
+
+You need to [install awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) 
+
+
+## Usage
+create.sh and update.sh will create/update a stack in AWS. 3 arguments are requiered - stack name, file containig template body and file containing the parameters.
+
+### Examples
 
 To deploy the networking components run command:
 ```

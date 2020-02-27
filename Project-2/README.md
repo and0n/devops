@@ -8,15 +8,15 @@ A bastion host can be deployed in one of the public networks in case of troubles
 
 ## Prerequisites
 
-AWS account
+- AWS account
 
-[Install awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+- [Install awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 
-[Configure awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)
+- [Configure awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)
 
 
 ## Usage
-create.sh and update.sh will create/update a stack in AWS. 3 arguments are requiered - stack name, file containig template body and file containing the parameters.
+`create.sh` and `update.sh` will create/update a stack in AWS. 3 arguments are requiered - stack name, file containig template body and file containing the parameters.
 
 Clone the Github repository and run create.sh or update.sh:
 ```

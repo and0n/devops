@@ -163,7 +163,62 @@ Resources:
       MaxSize: '6'
       TargetGroupARNs:
       - Ref: WebAppTargetGroup
+
+  AlarmScaleUp:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Alarm and triger autoscale if CPU > 90% for 5 minutes
+      MetricName: CPUUtilization
+      Namespace: AWS/EC2
+      Statistic: Average
+      Period: '180'
+      EvaluationPeriods: '2'
+      Threshold: '90'
+      AlarmActions:
+      - Ref: ScaleUpPolicy
+      Dimensions:
+      - Name: AutoScalingGroupName
+        Value:
+          Ref: WebAppGroup
+      ComparisonOperator: GreaterThanThreshold
+    
+  ScaleUpPolicy:
+    Type: AWS::AutoScaling::ScalingPolicy
+    Properties:
+      AdjustmentType: ChangeInCapacity
+      AutoScalingGroupName:
+        Ref: WebAppGroup
+      Cooldown: '60'
+      ScalingAdjustment: '1'
+
+  AlarmScaleDown:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Scale-down if CPU < 70% for 5 minutes
+      MetricName: CPUUtilization
+      Namespace: AWS/EC2
+      Statistic: Average
+      Period: '180'
+      EvaluationPeriods: '2'
+      Threshold: '70'
+      AlarmActions:
+      - Ref: ScaleDownPolicy
+      Dimensions:
+      - Name: AutoScalingGroupName
+        Value:
+          Ref: WebAppGroup
+      ComparisonOperator: LessThanThreshold  
   
+  ScaleDownPolicy:
+    Type: AWS::AutoScaling::ScalingPolicy
+    Properties:
+      AdjustmentType: ChangeInCapacity
+      AutoScalingGroupName:
+        Ref: WebAppGroup
+      Cooldown: '60'
+      ScalingAdjustment: "-1"
+
+
 Outputs:
 
   URL:

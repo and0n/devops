@@ -16,27 +16,31 @@ A bastion host can be deployed in one of the public networks in case of troubles
 
 
 ## Usage
-`create.sh` and `update.sh` will create/update a stack in AWS. 3 arguments are requiered - stack name, file containig template body and file containing the parameters.
+`cloudFormAWS.sh` will create/update a stack in AWS. 3 arguments are requiered - stack name, file containig template body and file containing the parameters.
 
 Clone the Github repository and run create.sh or update.sh:
 ```
 git clone https://github.com/and0n/devops.git
 cd devops/Project-2
 ```
+Make file executable:
+```
+sudo chmod +x cloudFormAWS.sh
+```
 
 ### Examples
 
 To deploy the networking components run command:
 ```
-./create.sh udagram-net udagram-infra.yaml udagram-infra.json
+./cloudFormAWS.sh udagram-net udagram-infra.yaml udagram-infra.json
 ```
 
 To deploy the servers, security roles and software run command:
 ```
-./create.sh udagram-servers udagram-servers.yaml udagram-servers.json
+./cloudFormAWS.sh udagram-servers udagram-servers.yaml udagram-servers.json
 ```
 
 To deploy the bastion host run command:
 ```
-./create.sh Bastion jumpbox.yaml jumpbox-parameters.json
+./cloudFormAWS.sh Bastion jumpbox.yaml jumpbox-parameters.json
 ```

@@ -20,7 +20,7 @@ A bastion host can be deployed in one of the public networks in case of troubles
 
 Clone the Github repository and run create.sh or update.sh:
 ```
-git clone https://github.com/and0n/devops.git
+git clone https://github.com/donkodimov/devops.git
 cd devops/Project-2
 ```
 Make file executable:

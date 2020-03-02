@@ -14,6 +14,9 @@ A bastion host can be deployed in one of the public networks in case of troubles
 
 - [Configure awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)
 
+- s3 bucket
+
+- create and copy to your s3 bucket udacity.zip file containg basic index.html
 
 ## Usage
 `cloudFormAWS.sh` will create/update a stack in AWS. 3 arguments are requiered - stack name, file containig template body and file containing the parameters.
@@ -27,7 +30,10 @@ Make file executable:
 ```
 sudo chmod +x cloudFormAWS.sh
 ```
-
+Replace the name of the s3 bucket in `udagram-servers.yaml` with the name of your s3 bucket:
+```
+aws s3 cp s3://YOUR-S3-BUCKET/udacity.zip .
+```
 ### Examples
 
 To deploy the networking components run command:

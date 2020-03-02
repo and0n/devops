@@ -44,3 +44,7 @@ To deploy the bastion host run command:
 ```
 ./cloudFormAWS.sh Bastion jumpbox.yaml jumpbox-parameters.json
 ```
+
+## License
+
+The contents of this repository are covered under the [GNU General Public License](LICENSE).
